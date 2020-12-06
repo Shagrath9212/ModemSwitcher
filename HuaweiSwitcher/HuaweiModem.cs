@@ -24,7 +24,6 @@ namespace HuaweiSwitcher
             {
                 client.DefaultRequestHeaders.Add("Cookie", tokenInfo.SesInfo);
                 client.DefaultRequestHeaders.Add("__RequestVerificationToken", tokenInfo.TokInfo);
-                //client.DefaultRequestHeaders.Add("Content-Type", "application/xml");
 
                 HttpResponseMessage responseMessage = await client.PostAsync(uri, ModemCommandsBodies.RebootCommand());
                 string response = await responseMessage.Content.ReadAsStringAsync();
