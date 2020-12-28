@@ -1,0 +1,8 @@
+.editor textarea{
+    width: 100%;
+}
+.cell-as-link{
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+}
