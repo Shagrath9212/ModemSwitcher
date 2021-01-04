@@ -14,7 +14,7 @@
                 callback();
                 return;
             }
-            
+
             let obj = JSON.parse(dataStr);
             callback(obj);
         })
@@ -22,7 +22,11 @@
 
     $(document).ready(function () {
         var columnDefs = [
-            { headerName: "Настройка", field: "TARGET_URL" }
+            { headerName: "Сайт", field: "TARGET_URL" },
+            { headerName: "Запрос", field: "TARGET_URL1" },
+            { headerName: "Время", field: "TARGET_URL2" },
+            { headerName: "Платный", field: "TARGET_URL3" },
+            { headerName: "Ошибка", field: "TARGET_URL4" },
         ];
 
         var gridOptions = {
@@ -38,7 +42,7 @@
         //     let data = JSON.parse(dataStr);
         //     gridOptions.api.setRowData(data);
         // })
-
+        gridOptions.api.setRowData([]);
         $("#settings-dlg-show-btn").click(app.showSettingsDlg);
     });
 }());

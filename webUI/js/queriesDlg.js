@@ -101,7 +101,7 @@
         return true;
     };
 
-    app.showQueriesDlg = function (targetUrl, callback) {
+    app.showQueriesDlg = function (session_id, callback) {
         BootstrapDialog.show({
             title: "Редактирование поисковых запросов",
             message: queriesDlg,
@@ -114,7 +114,7 @@
             },
             onshown: function (dialogRef) {
                 dialogRef.getModalDialog().find("#queries-add-position").click(function () {
-                    app.doRequest("http://192.168.56.1:8080/Data/AddQuery", { targetUrl: targetUrl }, function (data) {
+                    app.doRequest("http://192.168.56.1:8080/Data/AddQuery", { sessionId: session_id }, function (data) {
                         let row = {
                             query_id: data
                         }
@@ -126,7 +126,7 @@
 
                 let gridContainer = dialogRef.getModalDialog().find("#queries-grid");
                 new agGrid.Grid(gridContainer[0], queriesGridOptions);
-                app.doRequest("http://192.168.56.1:8080/Data/GetQueries", { targetUrl: targetUrl }, function (data) {
+                app.doRequest("http://192.168.56.1:8080/Data/GetQueries", { sessionId: session_id }, function (data) {
                     queriesGridOptions.api.setRowData(data);
                     queriesGridOptions.api.sizeColumnsToFit();
                 });
