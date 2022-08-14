@@ -14,7 +14,7 @@ namespace HuaweiSwitcherTester
         public static async Task Test()
         {
             var modem = new HuaweiSwitcher.HuaweiModem("192.168.8.1");
-            await modem.Reboot();
+            await modem.RebootAsync();
         }
     }
 }

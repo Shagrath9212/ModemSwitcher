@@ -114,7 +114,7 @@
             },
             onshown: function (dialogRef) {
                 dialogRef.getModalDialog().find("#queries-add-position").click(function () {
-                    app.doRequest("http://192.168.56.1:8080/Data/AddQuery", { sessionId: session_id }, function (data) {
+                    app.doRequest("http://192.168.56.1:8080/Data/AddSetting", { sessionId: session_id, settingType: "query" }, function (data) {
                         let row = {
                             query_id: data
                         }

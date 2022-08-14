@@ -12,7 +12,28 @@ namespace HuaweiSwitcher
             ApiUri = $"http://{gateway}/api";
         }
 
-        public async Task Reboot()
+        public Task Reboot()
+        {
+            Task<SessionTokenInfo> sessionTokenInfoTask = Task.Run(GetSessionInfo);
+            sessionTokenInfoTask.Wait();
+            if (!string.IsNullOrEmpty(sessionTokenInfoTask.Result.Error))
+            {
+                throw new System.Exception(sessionTokenInfoTask.Result.Error);
+            }
+            string uri = ApiUri + "/device/control";
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Cookie", sessionTokenInfoTask.Result.SesInfo);
+                client.DefaultRequestHeaders.Add("__RequestVerificationToken", sessionTokenInfoTask.Result.TokInfo);
+
+                Task<HttpResponseMessage> responseMessageTask = client.PostAsync(uri, ModemCommandsBodies.RebootCommand());
+                responseMessageTask.Wait();
+                //string response = await responseMessage.Content.ReadAsStringAsync();
+            }
+            return null;
+        }
+
+        public async Task RebootAsync()
         {
             SessionTokenInfo tokenInfo = await GetSessionInfo();
             if (!string.IsNullOrEmpty(tokenInfo.Error))
